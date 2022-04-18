@@ -15,7 +15,7 @@ module.exports = {
             erc721: '0x16f7ef3774c59264c46e5063b1111bcfd6e7a72f',
             // erc721: '0x5a08d01e07714146747950CE07BB0f741445D1b8',
             erc1155: '0x2e3Ef7931F2d0e4a7da3dea950FF3F19269d9063',
-            chainManagerAddress: '0xBbD7cBFA79faee899Eaf900F13C9065bF03B1A74', // Address of RootChainManager proxy for POS Portal
+            chainManagerAddress: '0x25a9AF323B3d3C49b3206FcaeD85C64Cab42Ba7e', // Address of RootChainManager proxy for POS Portal
         },
         child: {
             erc721: '0xbD88C3A7c0e242156a46Fbdf87141Aa6D0c0c649',

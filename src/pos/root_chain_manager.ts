@@ -4,8 +4,9 @@ import { IPOSClientConfig, ITransactionOption } from "../interfaces";
 export class RootChainManager extends BaseToken<IPOSClientConfig> {
 
     constructor(client_: Web3SideChainClient<IPOSClientConfig>, address: string) {
+        console.log("Root Chain Manager address = ", address);
         super({
-            address: address,
+            address: "0x25a9AF323B3d3C49b3206FcaeD85C64Cab42Ba7e",
             name: 'RootChainManager',
             bridgeType: 'pos',
             isParent: true

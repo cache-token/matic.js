@@ -32,7 +32,7 @@ export class ExitUtil {
 
     private getLogIndex_(logEventSig: string, receipt: ITransactionReceipt) {
         let logIndex = -1;
-
+        console.log("logEventSig the log ====> ", logEventSig);
         switch (logEventSig) {
             case '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef':
             case '0xf94915c6d1fd521cee85359239227480c7e8776d7caf1fc3bacad5c269b66a14':
@@ -40,7 +40,8 @@ export class ExitUtil {
                     log =>
                         log.topics[0].toLowerCase() === logEventSig.toLowerCase() &&
                         log.topics[2].toLowerCase() === '0x0000000000000000000000000000000000000000000000000000000000000000'
-                );
+                )+1;// added +1 here for CACHE since we have an additional log for approval
+                console.log("Found the log ====> ", logIndex);
                 break;
 
             case '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62':
@@ -228,6 +229,17 @@ export class ExitUtil {
             const logIndex = this.getLogIndex_(
                 logEventSig, receipt
             );
+            console.log("================================================================> ", logEventSig);
+            // console.log("rootBlockInfo.headerBlockNumber.toNumber()",rootBlockInfo.headerBlockNumber.toNumber(),
+            // "blockProof",blockProof,
+            // "txBlockNumber",txBlockNumber,
+            // "block.timestamp",block.timestamp,
+            // "Buffer.from(block.transactionsRoot.slice(2),'hex')",Buffer.from(block.transactionsRoot.slice(2),'hex'),
+            // "Buffer.from(block.receiptsRoot.slice(2), 'hex')",Buffer.from(block.receiptsRoot.slice(2), 'hex'),
+            // "ProofUtil.getReceiptBytes(receipt)",ProofUtil.getReceiptBytes(receipt),
+            // "receiptProof.parentNodes",receiptProof.parentNodes,
+            // "receiptProof.path",receiptProof.path,
+            // "logIndex", logIndex);
             // step 6 - encode payload, convert into hex
             return this.encodePayload_(
                 rootBlockInfo.headerBlockNumber.toNumber(),

@@ -141,12 +141,14 @@ export class ERC20 extends POSToken {
     private withdrawExit_(burnTransactionHash: string, isFast: boolean, option: IExitTransactionOption = {}) {
         const eventSignature = option.burnEventSignature ?
             option.burnEventSignature : Log_Event_Signature.Erc20Transfer;
-
+        console.log("--------------------\n------------------", burnTransactionHash);
         return this.exitUtil.buildPayloadForExit(
             burnTransactionHash,
             eventSignature,
             isFast
         ).then(payload => {
+        console.log("burnTransactionHash --------------------\n------------------ ", payload);
+
             return this.rootChainManager.exit(
                 payload, option
             );
