@@ -1,11 +1,11 @@
-const dotenv = require('dotenv');
-const path = require('path');
+const dotenv = require('dotenv')
+const path = require('path')
 const env = dotenv.config({
-  path: path.join(__dirname, '.env')
-});
+  path: path.join(__dirname, '.env'),
+})
 
 if (env.error) {
-  throw new Error("no env file found");
+  throw new Error('no env file found')
 }
 
 module.exports = {
@@ -35,10 +35,10 @@ module.exports = {
     // '<paste your private key here>' - A sample private key prefix with `0x`
     privateKey: process.env.USER1_PRIVATE_KEY,
     //'<paste address belonging to private key here>', Your address
-    address: process.env.USER1_FROM
+    address: process.env.USER1_FROM,
   },
   user2: {
-    address: process.env.USER2_FROM
+    address: process.env.USER2_FROM,
   },
-  proofApi: process.env.PROOF_API || 'https://apis.matic.network/'
+  proofApi: process.env.PROOF_API || 'https://apis.matic.network/',
 }
