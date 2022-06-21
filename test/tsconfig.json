@@ -1,16 +1,12 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "skipLibCheck": true,
     "lib": ["es2015", "dom"],
     "target": "es5",
-    "rootDir": "test",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "lib"
-  ]
+  "exclude": ["node_modules", "dist", "lib"]
 }
