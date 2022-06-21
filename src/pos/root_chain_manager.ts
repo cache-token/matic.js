@@ -6,7 +6,7 @@ export class RootChainManager extends BaseToken<IPOSClientConfig> {
     constructor(client_: Web3SideChainClient<IPOSClientConfig>, address: string) {
         console.log("Root Chain Manager address = ", address);
         super({
-            address: "0x25a9AF323B3d3C49b3206FcaeD85C64Cab42Ba7e",
+            address: "0xD7ecbfE71A9d643Fc8d8868E224474864e42A483",
             name: 'RootChainManager',
             bridgeType: 'pos',
             isParent: true
