@@ -1,5 +1,5 @@
-import { use } from '@maticnetwork/maticjs';
-import { Web3ClientPlugin } from '@maticnetwork/maticjs-ethers';
+import { use } from '../../dist/matic.node.js';
+import { Web3ClientPlugin } from '@maticnetwork/maticjs-web3';
 
 use(Web3ClientPlugin);
 

@@ -1,59 +1,24 @@
-import { from, posClient, posClientForTo, privateKey, RPC, to, toPrivateKey } from './client';
+import { erc20, from, getPOSClient, posClient, posClientForTo, privateKey, RPC, to, toPrivateKey } from './client';
 import { expect } from 'chai';
-import { ABIManager } from '@maticnetwork/maticjs';
+import { ABIManager } from '../../dist/matic.node.js';
 import { providers, Wallet } from 'ethers';
+import HDWalletProvider from '@truffle/hdwallet-provider';
 
-describe('POS Client', () => {
+describe('POS Client', (network = 'testnet', version = 'mumbai') => {
   const abiManager = new ABIManager('testnet', 'mumbai');
-  const parentPrivder = new providers.JsonRpcProvider(RPC.parent);
-  const childProvider = new providers.JsonRpcProvider(RPC.child);
 
   before(() => {
-    return Promise.all([
-      posClient.init({
-        // log: true,
-        network: 'testnet',
-        version: 'mumbai',
-        parent: {
-          provider: new Wallet(privateKey, parentPrivder),
-          defaultConfig: {
-            from,
-          },
-        },
-        child: {
-          provider: new Wallet(privateKey, childProvider),
-          defaultConfig: {
-            from,
-          },
-        },
-      }),
-      posClientForTo.init({
-        // log: true,
-        network: 'testnet',
-        version: 'mumbai',
-        parent: {
-          provider: new Wallet(toPrivateKey, parentPrivder),
-          defaultConfig: {
-            from: to,
-          },
-        },
-        child: {
-          provider: new Wallet(toPrivateKey, childProvider),
-          defaultConfig: {
-            from: to,
-          },
-        },
-      }),
-      abiManager.init(),
-    ]);
+    return Promise.all([abiManager.init()]);
   });
 
   it('depositEther return transaction', async () => {
     const amount = 100;
-    const result = await posClient.depositEther(amount, from, {
+    const client = await getPOSClient();
+    const result = await client.depositEther(amount, from, {
       returnTransaction: true,
+      gasLimit: 799795,
     });
-    const rootChainManager = await abiManager.getConfig('Main.POSContracts.RootChainManagerProxy');
+    const rootChainManager = '0xD7ecbfE71A9d643Fc8d8868E224474864e42A483';
     expect(result['to'].toLowerCase()).equal(rootChainManager.toLowerCase());
     expect(result['value']).equal('0x64');
   });
