@@ -1,5 +1,5 @@
-const webpackConfig = require('./webpack.config.test')
-process.env.CHROME_BIN = require('puppeteer').executablePath()
+const webpackConfig = require('./webpack.config.test');
+process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function (config) {
   config.set({
@@ -41,5 +41,5 @@ module.exports = function (config) {
     singleRun: true,
     concurrency: Infinity,
     browserNoActivityTimeout: 60000,
-  })
-}
+  });
+};
