@@ -5,7 +5,7 @@ const execute = async () => {
   const client = await getPOSClient();
   const erc20Token = client.erc20(pos.parent.erc20, true);
   const isExited = await erc20Token.isWithdrawExited(
-    '0x548a88d6af6633537def2b3b5deb311198ece649f6aa4ade9ec574ff0fda7698'
+    '0x5242c6fc0b00505944ca456603bcc700798123f6b65996fa561793970a18b21c'
   );
 
   console.log('result', isExited);

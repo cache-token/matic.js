@@ -8,48 +8,51 @@ describe('POS Client', () => {
   const parentPrivder = new providers.JsonRpcProvider(RPC.parent);
   const childProvider = new providers.JsonRpcProvider(RPC.child);
 
-  it('depositEther return transaction', async () => {
-    posClient.init({
-      // log: true,
-      network: 'testnet',
-      version: 'mumbai',
-      parent: {
-        provider: new Wallet(privateKey, parentPrivder),
-        defaultConfig: {
-          from,
+  before(() => {
+    return Promise.all([
+      posClient.init({
+        // log: true,
+        network: 'testnet',
+        version: 'mumbai',
+        parent: {
+          provider: new Wallet(privateKey, parentPrivder),
+          defaultConfig: {
+            from,
+          },
         },
-      },
-      child: {
-        provider: new Wallet(privateKey, childProvider),
-        defaultConfig: {
-          from,
+        child: {
+          provider: new Wallet(privateKey, childProvider),
+          defaultConfig: {
+            from,
+          },
         },
-      },
-    });
-    posClientForTo.init({
-      // log: true,
-      network: 'testnet',
-      version: 'mumbai',
-      parent: {
-        provider: new Wallet(toPrivateKey, parentPrivder),
-        defaultConfig: {
-          from: to,
+      }),
+      posClientForTo.init({
+        // log: true,
+        network: 'testnet',
+        version: 'mumbai',
+        parent: {
+          provider: new Wallet(toPrivateKey, parentPrivder),
+          defaultConfig: {
+            from: to,
+          },
         },
-      },
-      child: {
-        provider: new Wallet(toPrivateKey, childProvider),
-        defaultConfig: {
-          from: to,
+        child: {
+          provider: new Wallet(toPrivateKey, childProvider),
+          defaultConfig: {
+            from: to,
+          },
         },
-      },
-    });
-    abiManager.init();
+      }),
+      abiManager.init(),
+    ]);
+  });
 
+  it('depositEther return transaction', async () => {
     const amount = 100;
     const result = await posClient.depositEther(amount, from, {
       returnTransaction: true,
     });
-    console.log('Result =======>', result);
     const rootChainManager = await abiManager.getConfig('Main.POSContracts.RootChainManagerProxy');
     expect(result['to'].toLowerCase()).equal(rootChainManager.toLowerCase());
     expect(result['value']).equal('0x64');

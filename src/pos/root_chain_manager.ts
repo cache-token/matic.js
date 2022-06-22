@@ -27,21 +27,15 @@ export class RootChainManager extends BaseToken<IPOSClientConfig> {
     });
   }
 
-    exit(exitPayload: string, option: ITransactionOption) {
-        return this.method("receiveMessage", exitPayload).then(method => {
-            return this.processWrite(
-                method,
-                option
-            );
-        });
-    }
+  exit(exitPayload: string, option: ITransactionOption) {
+    return this.method('receiveMessage', exitPayload).then(method => {
+      return this.processWrite(method, option);
+    });
+  }
 
-    isExitProcessed(exitHash: string) {
-        return this.method(
-            "processedExits", exitHash
-        ).then(method => {
-            return this.processRead<boolean>(method);
-        });
-    }
-
+  isExitProcessed(exitHash: string) {
+    return this.method('processedExits', exitHash).then(method => {
+      return this.processRead<boolean>(method);
+    });
+  }
 }

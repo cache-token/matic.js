@@ -218,48 +218,48 @@ describe('ERC20', () => {
     expect(result['to'].toLowerCase()).equal(rootChainManager.toLowerCase());
   });
 
-  it('child transfer', async () => {
-    const oldBalance = await erc20Child.getBalance(to);
-    console.log('oldBalance', oldBalance);
-    const amount = 10000000;
-    let result = await erc20Child.transfer(amount, to, { gasLimit: 799795 });
-    let txHash = await result.getTransactionHash();
-    expect(txHash).to.be.an('string');
-    // console.log('txHash', txHash);
-    let txReceipt = await result.getReceipt();
-    // console.log("txReceipt", txReceipt);
+  // it('child transfer', async () => {
+  //   const oldBalance = await erc20Child.getBalance(to);
+  //   console.log('oldBalance', oldBalance);
+  //   const amount = 10000000;
+  //   let result = await erc20Child.transfer(amount, to, { gasLimit: 799795 });
+  //   let txHash = await result.getTransactionHash();
+  //   expect(txHash).to.be.an('string');
+  //   // console.log('txHash', txHash);
+  //   let txReceipt = await result.getReceipt();
+  //   // console.log("txReceipt", txReceipt);
 
-    expect(txReceipt.transactionHash).equal(txHash);
-    expect(txReceipt).to.be.an('object');
-    expect(txReceipt.from.toLowerCase()).equal(from.toLowerCase());
-    expect(txReceipt.to.toLowerCase()).equal(erc20.child.toLowerCase());
-    expect(txReceipt.type).equal(2);
-    expect(txReceipt.gasUsed).to.be.an('number').gt(0);
-    expect(txReceipt.cumulativeGasUsed).to.be.an('number').gt(0);
+  //   expect(txReceipt.transactionHash).equal(txHash);
+  //   expect(txReceipt).to.be.an('object');
+  //   expect(txReceipt.from.toLowerCase()).equal(from.toLowerCase());
+  //   expect(txReceipt.to.toLowerCase()).equal(erc20.child.toLowerCase());
+  //   expect(txReceipt.type).equal(2);
+  //   expect(txReceipt.gasUsed).to.be.an('number').gt(0);
+  //   expect(txReceipt.cumulativeGasUsed).to.be.an('number').gt(0);
 
-    expect(txReceipt).to.have.property('blockHash');
-    expect(txReceipt).to.have.property('blockNumber');
-    expect(txReceipt).to.have.property('events');
-    // expect(txReceipt).to.have.property('logs');
-    expect(txReceipt).to.have.property('logsBloom');
-    expect(txReceipt).to.have.property('status');
-    expect(txReceipt).to.have.property('transactionIndex');
+  //   expect(txReceipt).to.have.property('blockHash');
+  //   expect(txReceipt).to.have.property('blockNumber');
+  //   expect(txReceipt).to.have.property('events');
+  //   // expect(txReceipt).to.have.property('logs');
+  //   expect(txReceipt).to.have.property('logsBloom');
+  //   expect(txReceipt).to.have.property('status');
+  //   expect(txReceipt).to.have.property('transactionIndex');
 
-    const newBalance = await erc20Child.getBalance(to);
-    console.log('newBalance', newBalance);
+  //   const newBalance = await erc20Child.getBalance(to);
+  //   console.log('newBalance', newBalance);
 
-    const oldBalanceBig = new BN(oldBalance);
-    const newBalanceBig = new BN(newBalance);
+  //   const oldBalanceBig = new BN(oldBalance);
+  //   const newBalanceBig = new BN(newBalance);
 
-    expect(newBalanceBig.toString()).equal(oldBalanceBig.add(new BN(amount)).toString());
+  //   expect(newBalanceBig.toString()).equal(oldBalanceBig.add(new BN(amount)).toString());
 
-    //transfer money back to user
-    const erc20ChildToken = posClientForTo.erc20(erc20.child);
+  //   //transfer money back to user
+  //   const erc20ChildToken = posClientForTo.erc20(erc20.child);
 
-    result = await erc20ChildToken.transfer(amount, to, { gasLimit: 799795 });
-    txHash = await result.getTransactionHash();
-    txReceipt = await result.getReceipt();
-  });
+  //   result = await erc20ChildToken.transfer(amount, to, { gasLimit: 799795 });
+  //   txHash = await result.getTransactionHash();
+  //   txReceipt = await result.getReceipt();
+  // });
 
   if (process.env.NODE_ENV !== 'test_all') return;
 
