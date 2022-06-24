@@ -68,7 +68,7 @@ npm run build
 **Run test**
 
 ```bash
-npm run test
+cd test && npm run test
 ```
 
 **Generate distribution files**
